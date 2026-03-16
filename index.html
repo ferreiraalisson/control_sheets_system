@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSC Infra</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <aside>
+            <!-- SIDEBAR -->
+            <nav id="sb">
+                <div class="sb-logo">
+                    <i class="bi-slack"></i>
+                    <h3>Sistema SC Infra</h3>
+                </div>
+
+                <div class="sb-sec">Principal</div>
+                <div class="ni on" data-p="home">
+                    <div class="ni-ic"><i class="bi-house"></i></div><span>Início</span>
+                </div>
+                <div class="ni" data-p="todo">
+                    <div class="ni-ic"><i class="bi-check-all"></i></div><span>To-Do</span>
+                </div>
+                <div class="ni" data-p="agenda">
+                    <div class="ni-ic"><i class="bi-calendar3"></i></div><span>Agenda</span>
+                </div>
+
+                <div class="sb-sec">Operações</div>
+                <div class="ni" data-p="chamados">
+                    <div A="ni-ic"><i class="bi-journal-check"></i></div><span>Chamados</span>
+                </div>
+                <div class="ni" data-p="housekeeping">
+                    <div class="ni-ic"><i class="bi-list-check"></i></div><span>Housekeeping</span>
+                </div>
+
+                <div class="sb-sec">Financeiro</div>
+                <div class="ni" data-p="compras">
+                    <div class="ni-ic"><i class="bi-cart"></i></div><span>Compras</span>
+                </div>
+                <div class="ni" data-p="servicos">
+                    <div class="ni-ic"><i class="bi-buildings"></i></div><span>Serviços</span>
+                </div>
+                <div class="ni" data-p="fornecedores">
+                    <div class="ni-ic"><i class="bi-person-rolodex"></i></div><span>Fornecedores</span>
+                </div>
+                <div class="ni" data-p="rpa">
+                    <div class="ni-ic"><i class="bi-file-earmark-text"></i></div><span>RPA</span>
+                </div>
+            </nav>
+        </aside>
+
+        <main id="main">
+            <header>
+                <div id="topbar" style="position:relative">
+                    <div class="tb-title" id="tbtit">Início </div>
+                    <div class="srch-wrap">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <input type="text" id="sIn" placeholder="Buscar chamado, pedido, fornecedor...">
+                    </div>
+                    <div id="sRes"></div>
+                    <!-- <div class="tb-acts">
+                        <button class="bi" id="btnX" title="Exportar Excel" onclick="exportExcel()">📥</button>
+                        <button class="bi" id="btnAdd" title="Novo registro">＋</button>
+                    </div> -->
+
+                    <img src="./img/circle-half.svg" id="toggleTheme" class="icon-theme" alt="Ícone Tabela" width="24"
+                        height="24">
+                </div>
+            </header>
+
+            <div id="content">
+                <section id="pg-home" class="pg on">
+                    
+
+                    <div id="msg-inicial">
+                        <span style="font-size: 14px; color: var(--txt2);">Visão geral do dia</span>
+                        <div style="font-weight:800; margin-top: 20px;" id="hgreet"></div>
+                        <div style="font-size:12px;color:var(--txt2);margin-top:3px" id="hdate"></div>
+                    </div>
+                
+                    <div class="layout-principal">
+            
+                        <div class="coluna-esquerda">
+                            <div class="hl">
+                                <div class="sg" id="hstats"></div> <div>
+                                    <div style="font-size:13px;font-weight:700;margin-bottom:10px;font-family:Syne,sans-serif">
+                                        Acesso Rápido
+                                    </div>
+                                    <div class="qc" id="secg"></div> </div>
+                            </div>
+                        </div>
+            
+                        <div class="coluna-direita">
+                            </div>
+            
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="./js/actions.js"></script>
+</body>
+
+</html>

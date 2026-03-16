@@ -1,0 +1,610 @@
+/* =========================================
+   TEMAS E VARIÁVEIS BASE
+   ========================================= */
+:root {
+    /* Cores de Fundo - Tema light */
+    --bg-color: #F3F4F6; /* Fundo principal levemente cinza */
+    --surf: #FFFFFF;     /* Barra lateral branca pura */
+    --card: #FFFFFF;     /* Fundo de inputs */
+    --card2: #F9FAFB;    /* Fundo de inputs com hover */
+    
+    /* Textos  */
+    --text-color: #111827; 
+    --txt2: #4B5563; /* Textos secundários (ex: itens do menu) */
+    --txt3: #9CA3AF; /* Placeholders e ícones menos importantes */
+    
+    /* Destaques e Sombras */
+    --cyan: #1DB954; 
+    --border: rgba(0, 0, 0, 0.05); /* Usado para sombras ultra suaves */
+
+    /* Fundo para hover no modo claro */
+    --hover-bg: rgba(0, 0, 0, 0.05);   
+    --active-bg: rgba(0, 0, 0, 0.08);
+
+    /* ... suas cores que já estavam aqui ... */
+    --warn: #E50914;/* Laranja para alertas/chamados */
+    --orange: #F59E0B; /* Laranja para compras/pendências */
+    --ok: #10B981;   /* Verde para tarefas concluídas/ok */
+}
+
+body.dark {
+  --bg-color: #121212; 
+  --surf: #000000; /* Fundo da barra lateral */
+  --card: #282828; /* Fundo de inputs e botões */
+  --card2: #3E3E3E; /* Fundo de hover nos botões */
+  
+  /* Textos com opacidade para hierarquia, não apenas cinza */
+  --text-color: #FFFFFF; 
+  --txt2: rgba(255, 255, 255, 0.7); 
+  --txt3: rgba(255, 255, 255, 0.5); 
+  
+  /* Cores de destaque vibrantes (O "Neon" no escuro) */
+  --cyan: #1DB954; /*  #E50914 ou #22d3ee */
+  --accent: #1DB954;
+  --border: rgba(255, 255, 255, 0.05); /* Bordas quase invisíveis */
+
+  --hover-bg: rgba(255, 255, 255, 0.05);  /* Fundo branco sutil para o hover no modo escuro */
+  --active-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   ESTILOS GLOBAIS
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+html, body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    height: 100%;
+    font-family: "DM Sans", sans-serif;
+    overflow: hidden
+}
+
+/* aplicação dos svgs ao mudar o tema */
+body.dark img {
+    filter: invert(100%);
+}
+
+/* Ajuste opcional para os ícones ficarem melhores alinhados
+header img {
+    vertical-align: middle;
+    cursor: pointer; /* para o ícone que alterna o tema 
+} */
+
+/* .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre o ícone e o texto 
+} */
+
+
+/* =========================================
+   ESTRUTURA PRINCIPAL (LAYOUT)
+   ========================================= */
+
+
+#app {
+    display: flex;
+    height: 100vh
+  }
+
+  /* BARRA LATERAL (SIDEBAR) */  
+#sb {
+    min-width: var(--sw);
+    height: 100vh;
+    background: var(--surf); /* Vai puxar o fundo mais escuro */
+    /* border-right: 1px solid var(--border); APAGUE ESTA LINHA */
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3); /* Sombra suave vazando para o conteúdo */
+}
+
+.sb-logo {
+    padding: 20px 18px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px
+}
+
+.sb-sec {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--txt3);
+    padding: 8px 18px 4px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px
+}
+
+.ni {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px; /* Um pouco maior para leitura */
+    font-weight: 600; /* Mais encorpado */
+    color: var(--txt2); /* Começa levemente apagado */
+    transition: all 0.3s ease; /* Transição mais suave */
+    position: relative;
+    white-space: nowrap;
+    border-radius: 20px; /* Bordas arredondadas no hover ficam mais amigáveis */
+    margin: 2px 12px; /* Espaço para a borda arredondada não colar na tela */
+}
+
+/* O que acontece ao passar o mouse */
+.ni:hover {
+    color: var(--text-color); 
+    background: var(--hover-bg); 
+    transform: translateX(4px); 
+}
+
+/* O item que está ativo no momento */
+.ni.on {
+    color: var(--text-color);
+    background: var(--active-bg);
+}
+
+/* A barrinha indicadora do item ativo */
+.ni.on::before {
+    content: "";
+    position: absolute;
+    left: -12px; /* Ajustado por causa da margem nova */
+    top: 15%;
+    bottom: 15%;
+    width: 4px; /* Um pouco mais grossa */
+    background: var(--cyan);
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 0 10px var(--cyan); /* Um leve brilho (glow) na barrinha ativa */
+}
+
+.ni-ic {
+font-size: 15px;
+flex-shrink: 0;
+width: 18px;
+text-align: center
+}
+
+/* =========================================
+   HEADER E CONTEÚDO DO TOPO
+   ========================================= */
+
+#main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    min-width: 0
+}
+
+header {
+    display: flex;
+    justify-content: space-between; /* Empurra o conteúdo para as pontas */
+    align-items: center;           /* Alinha tudo verticalmente ao centro */
+    padding-left: 10px; 
+    padding-right: 10px;           /* Espaçamento interno */
+}
+
+#topbar {
+    width: 100%;
+    height: 58px;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(7, 7, 15, 0.048);
+    /* background: #121212b0; */
+    backdrop-filter: blur(16px);
+    z-index: 40;
+    gap: 16px
+}
+
+.tb-title {
+    font-family: "Syne", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap
+}
+
+.tb-title span {
+    color: var(--txt2);
+    font-size: 12px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    margin-left: 8px
+}
+
+.srch-wrap {
+    flex: 1;
+    max-width: 320px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 7px 12px;
+    transition: border-color .2s
+}
+
+.srch-wrap:focus-within {
+    border-color: var(--accent)
+}
+
+.srch-wrap svg {
+  color: var(--txt3);
+  flex-shrink: 0
+}
+
+#sIn {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--txt);
+  font-size: 13px;
+  font-family: "DM Sans", sans-serif;
+  width: 100%
+}
+
+#sIn::placeholder {
+  color: var(--txt3)
+}
+
+.tb-acts {
+  display: flex;
+  align-items: center;
+  gap: 6px
+}
+
+.bi {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--card);
+  color: var(--txt2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  font-size: 14px
+}
+
+.bi:hover {
+  background: var(--card2);
+  color: var(--txt)
+}
+
+/* =========================================
+   DROPDOWN DE PESQUISA
+   ========================================= */
+#sRes {
+  position: absolute;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  z-index: 200;
+  max-height: 380px;
+  overflow-y: auto;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .5);
+  display: none
+}
+
+.sr-it {
+  padding: 11px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background .12s
+}
+
+.sr-it:last-child {
+  border-bottom: none
+}
+
+.sr-it:hover {
+  background: var(--card)
+}
+
+.sr-tag {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  background: rgba(108, 99, 255, .18);
+  color: var(--cyan);
+  margin-bottom: 3px
+}
+
+.sr-main {
+  font-size: 13px;
+  font-weight: 500
+}
+
+.sr-sub {
+  font-size: 11px;
+  color: var(--txt2);
+  margin-top: 1px
+}
+
+#content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 24px
+}
+
+/* =========================================
+   ÁREA DE PÁGINAS (CONTEÚDO)
+   ========================================= */
+.pg {
+  display: none;
+  animation: fi .2s ease
+}
+
+.pg.on {
+  display: block
+}
+
+@keyframes fi {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#msg-inicial{
+  margin-bottom:15px;
+  font-family:Syne,sans-serif;
+  font-size:19px;
+}
+
+/* STATS - Boxes resumos */
+
+.hl {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-right: 4px
+}
+
+.sg {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px
+}
+
+.sc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 16px;
+  transition: transform .18s, box-shadow .18s;
+  cursor: pointer;
+
+  /* A MÁGICA DO CARD: Uma sombra bem suave e moderna */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.sc:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08); /* Sombra aumenta no hover */
+}
+
+.sl {
+  font-size: 10px;
+  color: var(--txt2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 7px
+}
+
+.sv {
+  font-family: "Syne", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1
+}
+
+.ss {
+  font-size: 11px;
+  color: var(--txt2);
+  margin-top: 5px
+}
+
+.secg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px
+}
+
+.qc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 13px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+.secc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Empurra o nome pra esquerda e o número pra direita */
+  padding: 12px 8px; /* Mais espaço pra respirar */
+  cursor: pointer;
+  border-bottom: 1px solid var(--border); /* A linha divisória elegante */
+  transition: background 0.2s, border-radius 0.2s;
+  
+}
+
+/* Remove a linha divisória do último item da lista */
+.secc:last-child {
+  border-bottom: none;
+}
+
+/* Um efeitinho ao passar o mouse */
+.secc:hover {
+  background: var(--hover-bg);
+  border-radius: 8px;
+}
+
+.secc-info {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre o ícone e o nome */
+}
+
+.secc-pontilhados {
+  flex-grow: 1; /* Faz a div ocupar todo o espaço vazio restante */
+  border-bottom: 2px dotted var(--border); /* Ou use uma cor fixa tipo #ccc */
+  margin: 0 15px; /* Espaço entre o texto, os pontos e o número */
+  opacity: 0.5;
+  height: 1px;
+}
+
+.secc-n {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--txt2)
+}
+
+.secc-c {
+  font-family: "Syne", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--txt)
+}
+
+/* Cria o layout separando a tela em Esquerda e Direita */
+.layout-principal {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Esquerda ocupa 2 partes (66%), Direita ocupa 1 parte (33%) */
+  gap: 24px; /* Espaço entre as duas colunas */
+  width: 100%;
+}
+
+/* =========================================
+   RESPONSIVIDADE (Media Queries)
+   ========================================= */
+
+/* Para Tablets (Telas até 768px de largura) */
+@media (max-width: 900px) {
+  .layout-principal {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #sb {
+      min-width: 60px;
+      width: 60px;
+  }
+
+  /* Esconde os textos e títulos da barra lateral, mantendo só ícones */
+  .sb-logo h3, 
+  .sb-sec, 
+  .ni span {
+      display: none; 
+  }
+
+  /* Centraliza o ícone da logo */
+  .sb-logo {
+      justify-content: center;
+      padding: 20px 0 16px;
+  }
+
+  /* Centraliza os ícones do menu */
+  .ni {
+      padding: 10px 0;
+      margin: 5px;
+      justify-content: center;
+  }
+
+  /* Remove a barrinha lateral verde do item ativo */
+  .ni.on::before {
+      display: none; 
+  }
+
+  /* Reduz a barra de pesquisa para caber no topo */
+  .srch-wrap {
+      max-width: 150px; 
+  }
+}
+
+/* Para Celulares (Telas até 480px de largura) */
+@media (max-width: 480px) {
+  /* Transforma o layout principal */
+  #app {
+      flex-direction: column-reverse; 
+  }
+
+  /* Transforma a barra lateral numa Bottom Nav (estilo app de celular) */
+  #sb {
+      width: 100%;
+      min-width: 100%;
+      height: 60px;
+      flex-direction: row; 
+      justify-content: space-around; 
+      padding: 0;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1); 
+      overflow-x: auto; 
+  }
+
+  /* Esconde a logo no celular */
+  .sb-logo {
+      display: none; 
+  }
+
+  /* Ajustes dos botões na barra inferior */
+  .ni {
+      margin: 0;
+      border-radius: 10px;
+      padding: 10px 15px;
+  }
+  
+  /* Corrige o hover para não bugar no celular */
+  .ni:hover {
+      transform: none; 
+  }
+
+  #topbar {
+      padding: 0 15px;
+      gap: 10px;
+  }
+
+  .srch-wrap {
+      max-width: 120px; 
+  }
+
+  #content {
+      padding: 15px; 
+  }
+
+  .sg {
+    display: flex; /* Muda de grid para flex no celular */
+    overflow-x: auto; /* Permite rolar para os lados */
+    padding-bottom: 10px; /* Espaço para a barra de rolagem não cortar a sombra */
+  }
+  .sc {
+      min-width: 140px; /* Tamanho mínimo de cada card no celular */
+      flex-shrink: 0; /* Impede que o card seja esmagado */
+  }
+}
