@@ -16,94 +16,104 @@
     <div id="app">
         <aside>
             <!-- SIDEBAR -->
-            <nav id="sb">
-                <div class="sb-logo">
+            <nav id="menu">
+                <div class="logo">
                     <i class="bi-slack"></i>
                     <h3>Sistema SC Infra</h3>
                 </div>
 
-                <div class="sb-sec">Principal</div>
-                <div class="ni on" data-p="home">
-                    <div class="ni-ic"><i class="bi-house"></i></div><span>Início</span>
+                <div class="indice-menu">Principal</div>
+                <div class="opcao ativa" data-p="home">
+                    <div class="opcao-icone"><i class="bi-house"></i></div><span>Início</span>
                 </div>
-                <div class="ni" data-p="todo">
-                    <div class="ni-ic"><i class="bi-check-all"></i></div><span>To-Do</span>
+                <div class="opcao" data-p="todo">
+                    <div class="opcao-icone"><i class="bi-check-all"></i></div><span>To-Do</span>
                 </div>
-                <div class="ni" data-p="agenda">
-                    <div class="ni-ic"><i class="bi-calendar3"></i></div><span>Agenda</span>
-                </div>
-
-                <div class="sb-sec">Operações</div>
-                <div class="ni" data-p="chamados">
-                    <div A="ni-ic"><i class="bi-journal-check"></i></div><span>Chamados</span>
-                </div>
-                <div class="ni" data-p="housekeeping">
-                    <div class="ni-ic"><i class="bi-list-check"></i></div><span>Housekeeping</span>
+                <div class="opcao" data-p="agenda">
+                    <div class="opcao-icone"><i class="bi-calendar3"></i></div><span>Agenda</span>
                 </div>
 
-                <div class="sb-sec">Financeiro</div>
-                <div class="ni" data-p="compras">
-                    <div class="ni-ic"><i class="bi-cart"></i></div><span>Compras</span>
+                <div class="indice-menu">Operações</div>
+                <div class="opcao" data-p="chamados">
+                    <div A="opcao-icone"><i class="bi-journal-check"></i></div><span>Chamados</span>
                 </div>
-                <div class="ni" data-p="servicos">
-                    <div class="ni-ic"><i class="bi-buildings"></i></div><span>Serviços</span>
+                <div class="opcao" data-p="housekeeping">
+                    <div class="opcao-icone"><i class="bi-list-check"></i></div><span>Housekeeping</span>
                 </div>
-                <div class="ni" data-p="fornecedores">
-                    <div class="ni-ic"><i class="bi-person-rolodex"></i></div><span>Fornecedores</span>
+
+                <div class="indice-menu">Financeiro</div>
+                <div class="opcao" data-p="compras">
+                    <div class="opcao-icone"><i class="bi-cart"></i></div><span>Compras</span>
                 </div>
-                <div class="ni" data-p="rpa">
-                    <div class="ni-ic"><i class="bi-file-earmark-text"></i></div><span>RPA</span>
+                <div class="opcao" data-p="servicos">
+                    <div class="opcao-icone"><i class="bi-buildings"></i></div><span>Serviços</span>
+                </div>
+                <div class="opcao" data-p="fornecedores">
+                    <div class="opcao-icone"><i class="bi-person-rolodex"></i></div><span>Fornecedores</span>
+                </div>
+                <div class="opcao" data-p="rpa">
+                    <div class="opcao-icone"><i class="bi-file-earmark-text"></i></div><span>RPA</span>
                 </div>
             </nav>
         </aside>
 
         <main id="main">
             <header>
-                <div id="topbar" style="position:relative">
+                <div id="topbar">
                     <div class="tb-title" id="tbtit">Início </div>
-                    <div class="srch-wrap">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                    <div class="search-wrap">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
-                        <input type="text" id="sIn" placeholder="Buscar chamado, pedido, fornecedor...">
+                        <input type="text" id="input" placeholder="Buscar chamado, pedido, fornecedor...">
                     </div>
-                    <div id="sRes"></div>
+                    <div id="search-response"></div>
                     <!-- <div class="tb-acts">
                         <button class="bi" id="btnX" title="Exportar Excel" onclick="exportExcel()">📥</button>
                         <button class="bi" id="btnAdd" title="Novo registro">＋</button>
                     </div> -->
 
-                    <img src="./img/circle-half.svg" id="toggleTheme" class="icon-theme" alt="Ícone Tabela" width="24"
-                        height="24">
+                    <img src="./img/circle-half.svg" id="toggleTheme" class="icon-theme" alt="Mudança de tema" width="20" height="20">
                 </div>
             </header>
 
             <div id="content">
-                <section id="pg-home" class="pg on">
+                <section id="pg-home" class="pg ativa">
                     
-
                     <div id="msg-inicial">
                         <span style="font-size: 14px; color: var(--txt2);">Visão geral do dia</span>
-                        <div style="font-weight:800; margin-top: 20px;" id="hgreet"></div>
-                        <div style="font-size:12px;color:var(--txt2);margin-top:3px" id="hdate"></div>
+                        <h2 style="font-weight:800; margin-top: 20px;" id="hello-wd"></h2>
+                        <h4 style="font-size:12px;color:var(--txt2);margin-top:3px" id="data-now"></h4>
                     </div>
                 
-                    <div class="layout-principal">
-            
-                        <div class="coluna-esquerda">
-                            <div class="hl">
-                                <div class="sg" id="hstats"></div> <div>
-                                    <div style="font-size:13px;font-weight:700;margin-bottom:10px;font-family:Syne,sans-serif">
+                    <div class="layout-principal">           
+                        <div class="col-esquerda">
+                            <div class="destaques">
+                                <div class="mini-box" id="estatisticas-destaque"></div> <div>
+                                    <!-- <div style="font-size:13px;font-weight:700;margin-bottom:10px;font-family:Syne,sans-serif">
                                         Acesso Rápido
-                                    </div>
-                                    <div class="qc" id="secg"></div> </div>
+                                    </div> -->
                             </div>
+
+                            <div>
+                                <h3>Acesso Rápido</h3>
+                                <div class="quadros" id="listagem-grupos"></div> 
+                            </div>
+                            
+                            <div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px">
+                                  <h3 style="font-size:13px;font-weight:700;font-family:Syne,sans-serif">✅ Ocorrências Pendentes</h3>
+                                  <button class="btn bs bsm" onclick="nav('todo')">Ver tudo</button>
+                                </div>
+                                <div class="quadros" id="ocorrencias"></div>
+                            </div>
+
                         </div>
             
-                        <div class="coluna-direita">
-                            </div>
+                        <div class="col-direita">
+                            
+                        </div>
             
                     </div>
                 </section>

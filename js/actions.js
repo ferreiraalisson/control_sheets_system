@@ -21,8 +21,8 @@ if(savedTheme === "dark"){
 // Apresentação inicial da hora
 const h = new Date().getHours();
 
-document.getElementById('hgreet').innerHTML = h < 12 ? '<i class="bi-brightness-low-fill"></i> Bom dia!' : h < 18 ? '<i class="bi-brightness-low-fill"></i> Boa tarde!' : '<i class="bi-moon-stars"></i> Boa noite!';
-document.getElementById('hdate').textContent = new Date().toLocaleDateString('pt-BR', { 
+document.getElementById('hello-wd').innerHTML = h < 12 ? '<i class="bi-brightness-low-fill"></i> Bom dia!' : h < 18 ? '<i class="bi-brightness-low-fill"></i> Boa tarde!' : '<i class="bi-moon-stars"></i> Boa noite!';
+document.getElementById('data-now').textContent = new Date().toLocaleDateString('pt-BR', { 
     weekday: 'long', 
     year: 'numeric', 
     month: 'long', 
@@ -48,23 +48,28 @@ let rpa = [1, 2, 3, 4];
 let hk = [1];
 let fcd = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-document.getElementById('hstats').innerHTML = `
-    <div class="sc" onclick="nav('chamados')" style="cursor:pointer"><div class="sl">Chamados Abertos</div><div class="sv" style="color:var(--warn)">${open}</div><div class="ss">${ch.length} total</div></div>
-    <div class="sc" onclick="nav('ocorrencias')" style="cursor:pointer"><div class="sl">Ocorrências Hoje</div><div class="sv" style="color:var(--cyan)">${todayOc}</div><div class="ss">${oc.length} total</div></div>
-    <div class="sc" onclick="nav('compras')" style="cursor:pointer"><div class="sl">Compras Pendentes</div><div class="sv" style="color:var(--orange)">${pend}</div><div class="ss">${cp.length} total</div></div>
-    <div class="sc" onclick="nav('todo')" style="cursor:pointer"><div class="sl">Tarefas Pendentes</div><div class="sv" style="color:var(--ok)">${ptd}</div><div class="ss">${td2.length} total</div></div>`;
+document.getElementById('estatisticas-destaque').innerHTML = `
+    <div class="mini-box-content" onclick="nav('chamados')" style="cursor:pointer"><div class="box-title-dest">Chamados Abertos</div><div class="box-valor" style="color:var(--warn)">${open}</div><div class="valor-total-dest">${ch.length} total</div></div>
+    <div class="mini-box-content" onclick="nav('ocorrencias')" style="cursor:pointer"><div class="box-title-dest">Ocorrências Hoje</div><div class="box-valor" style="color:var(--cyan)">${todayOc}</div><div class="valor-total-dest">${oc.length} total</div></div>
+    <div class="mini-box-content" onclick="nav('compras')" style="cursor:pointer"><div class="box-title-dest">Compras Pendentes</div><div class="box-valor" style="color:var(--orange)">${pend}</div><div class="valor-total-dest">${cp.length} total</div></div>
+    <div class="mini-box-content" onclick="nav('todo')" style="cursor:pointer"><div class="box-title-dest">Tarefas Pendentes</div><div class="box-valor" style="color:var(--ok)">${ptd}</div><div class="valor-total-dest">${td2.length} total</div></div>`;
 
 
-    document.getElementById('secg').innerHTML = [
-        { p: 'chamados', n: 'Chamados', c: ch.length },
-        { p: 'compras', n: 'Compras', c: cp.length },
-        { p: 'servicos', n: 'Serviços', c: sv.length },
-        { p: 'rpa', n: 'RPA', c: rpa.length },
-        { p: 'housekeeping', n: 'Demandas', c: hk.length },
-        { p: 'fornecedores', n: 'Fornecedores', c: fcd.length}
-    ].map(s => `
-        <div class="secc" onclick="nav('${s.p}')">
-            <div class="secc-n">${s.n}</div>
-            <div class="secc-c">${s.c}</div>
-        </div>
-    `).join('');
+document.getElementById('listagem-grupos').innerHTML = [
+    { p: 'chamados', n: 'Chamados', c: ch.length },
+    { p: 'compras', n: 'Compras', c: cp.length },
+    { p: 'servicos', n: 'Serviços', c: sv.length },
+    { p: 'rpa', n: 'RPA', c: rpa.length },
+    { p: 'housekeeping', n: 'Demandas', c: hk.length },
+    { p: 'fornecedores', n: 'Fornecedores', c: fcd.length}
+].map(s => `
+    <div class="selecionar-grupo" onclick="nav('${s.p}')">
+        <div class="grupo-nome">${s.n}</div>
+        <div class="grupo-conteudo">${s.c}</div>
+    </div>
+`).join('');
+
+const td = getStore('td');
+const todos = td.filter(t => t.status !== 'Concluído').slice(0, 6);
+
+document.getElementById('ocorrencias').innerHTML = todos.length ? todos.map(t => `<div class="qi"><div class="qi-t">${t.titulo || ''}</div>${prioBadge(t.prioridade)}</div>`).join('') : '<div style="font-size:12px;color:var(--txt2);padding:6px 0">Sem tarefas pendentes 🎉</div>';

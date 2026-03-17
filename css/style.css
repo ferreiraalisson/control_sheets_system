@@ -106,7 +106,7 @@ header img {
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3); /* Sombra suave vazando para o conteúdo */
 }
 
-.sb-logo {
+.logo {
     padding: 20px 18px 16px;
     display: flex;
     align-items: center;
@@ -115,7 +115,7 @@ header img {
     margin-bottom: 8px
 }
 
-.sb-sec {
+.indice-menu {
     font-size: 9.5px;
     font-weight: 700;
     color: var(--txt3);
@@ -124,7 +124,7 @@ header img {
     letter-spacing: 1.2px
 }
 
-.ni {
+.opcao {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -141,20 +141,20 @@ header img {
 }
 
 /* O que acontece ao passar o mouse */
-.ni:hover {
+.opcao:hover {
     color: var(--text-color); 
     background: var(--hover-bg); 
     transform: translateX(4px); 
 }
 
 /* O item que está ativo no momento */
-.ni.on {
+.opcao.ativa {
     color: var(--text-color);
     background: var(--active-bg);
 }
 
 /* A barrinha indicadora do item ativo */
-.ni.on::before {
+.opcao.ativa::before {
     content: "";
     position: absolute;
     left: -12px; /* Ajustado por causa da margem nova */
@@ -166,7 +166,7 @@ header img {
     box-shadow: 0 0 10px var(--cyan); /* Um leve brilho (glow) na barrinha ativa */
 }
 
-.ni-ic {
+.opcao-icone {
 font-size: 15px;
 flex-shrink: 0;
 width: 18px;
@@ -207,7 +207,8 @@ header {
     /* background: #121212b0; */
     backdrop-filter: blur(16px);
     z-index: 40;
-    gap: 16px
+    gap: 16px;
+    position:relative
 }
 
 .tb-title {
@@ -225,7 +226,7 @@ header {
     margin-left: 8px
 }
 
-.srch-wrap {
+.search-wrap {
     flex: 1;
     max-width: 320px;
     display: flex;
@@ -238,16 +239,16 @@ header {
     transition: border-color .2s
 }
 
-.srch-wrap:focus-within {
+.search-wrap:focus-within {
     border-color: var(--accent)
 }
 
-.srch-wrap svg {
+.search-wrap svg {
   color: var(--txt3);
   flex-shrink: 0
 }
 
-#sIn {
+#input {
   background: none;
   border: none;
   outline: none;
@@ -257,7 +258,7 @@ header {
   width: 100%
 }
 
-#sIn::placeholder {
+#input::placeholder {
   color: var(--txt3)
 }
 
@@ -290,7 +291,7 @@ header {
 /* =========================================
    DROPDOWN DE PESQUISA
    ========================================= */
-#sRes {
+#search-response {
   position: absolute;
   top: 54px;
   left: 50%;
@@ -359,7 +360,7 @@ header {
   animation: fi .2s ease
 }
 
-.pg.on {
+.pg.ativa {
   display: block
 }
 
@@ -376,7 +377,15 @@ header {
 
 /* STATS - Boxes resumos */
 
-.hl {
+/* Cria o layout separando a tela em Esquerda e Direita */
+.layout-principal {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Esquerda ocupa 2 partes (66%), Direita ocupa 1 parte (33%) */
+  gap: 24px; /* Espaço entre as duas colunas */
+  width: 100%;
+}
+
+.destaques {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -384,14 +393,14 @@ header {
   padding-right: 4px
 }
 
-.sg {
+.mini-box {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 12px;
   margin-bottom: 20px
 }
 
-.sc {
+.mini-box-content {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 13px;
@@ -403,12 +412,12 @@ header {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.sc:hover {
+.mini-box-content:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08); /* Sombra aumenta no hover */
 }
 
-.sl {
+.box-title-dest {
   font-size: 10px;
   color: var(--txt2);
   font-weight: 600;
@@ -417,26 +426,20 @@ header {
   margin-bottom: 7px
 }
 
-.sv {
+.box-valor {
   font-family: "Syne", sans-serif;
   font-size: 24px;
   font-weight: 800;
   line-height: 1
 }
 
-.ss {
+.valor-total-dest {
   font-size: 11px;
   color: var(--txt2);
   margin-top: 5px
 }
 
-.secg {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px
-}
-
-.qc {
+.quadros {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 13px;
@@ -444,7 +447,13 @@ header {
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 }
 
-.secc {
+.listagem-grupos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px
+}
+
+.selecionar-grupo {
   display: flex;
   align-items: center;
   justify-content: space-between; /* Empurra o nome pra esquerda e o número pra direita */
@@ -456,49 +465,89 @@ header {
 }
 
 /* Remove a linha divisória do último item da lista */
-.secc:last-child {
+.selecionar-grupo:last-child {
   border-bottom: none;
 }
 
 /* Um efeitinho ao passar o mouse */
-.secc:hover {
+.selecionar-grupo:hover {
   background: var(--hover-bg);
   border-radius: 8px;
 }
 
-.secc-info {
+/* .secc-info {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espaço entre o ícone e o nome */
-}
+  gap: 10px; Espaço entre o ícone e o nome 
+} */
 
-.secc-pontilhados {
-  flex-grow: 1; /* Faz a div ocupar todo o espaço vazio restante */
-  border-bottom: 2px dotted var(--border); /* Ou use uma cor fixa tipo #ccc */
-  margin: 0 15px; /* Espaço entre o texto, os pontos e o número */
+/* .secc-pontilhados {
+  flex-grow: 1; /* Faz a div ocupar todo o espaço vazio restante 
+  border-bottom: 2px dotted var(--border); /* Ou use uma cor fixa tipo #ccc 
+  margin: 0 15px; Espaço entre o texto, os pontos e o número 
   opacity: 0.5;
   height: 1px;
-}
+}  */
 
-.secc-n {
+.grupo-nome {
   font-size: 16px;
   font-weight: 600;
   color: var(--txt2)
 }
 
-.secc-c {
+.grupo-conteudo {
   font-family: "Syne", sans-serif;
   font-size: 20px;
   font-weight: 800;
   color: var(--txt)
 }
 
-/* Cria o layout separando a tela em Esquerda e Direita */
-.layout-principal {
-  display: grid;
-  grid-template-columns: 2fr 1fr; /* Esquerda ocupa 2 partes (66%), Direita ocupa 1 parte (33%) */
-  gap: 24px; /* Espaço entre as duas colunas */
-  width: 100%;
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  transition: all .18s
+}
+
+.bs {
+  background: var(--card2);
+  color: var(--txt);
+  border: 1px solid var(--border)
+}
+
+.bs:hover {
+  background: var(--border)
+}
+
+.bsm {
+  padding: 4px 10px;
+  font-size: 11px
+}
+
+
+.qi {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(30, 30, 54, .5)
+}
+
+.qi:last-child {
+  border-bottom: none
+}
+
+.qi-t {
+  flex: 1;
+  font-size: 12px
 }
 
 /* =========================================
@@ -513,38 +562,38 @@ header {
 }
 
 @media (max-width: 768px) {
-  #sb {
+  #menu {
       min-width: 60px;
       width: 60px;
   }
 
   /* Esconde os textos e títulos da barra lateral, mantendo só ícones */
-  .sb-logo h3, 
-  .sb-sec, 
-  .ni span {
+  .logo h3, 
+  .indice-menu, 
+  .opcao span {
       display: none; 
   }
 
   /* Centraliza o ícone da logo */
-  .sb-logo {
+  .logo {
       justify-content: center;
       padding: 20px 0 16px;
   }
 
   /* Centraliza os ícones do menu */
-  .ni {
+  .opcao {
       padding: 10px 0;
       margin: 5px;
       justify-content: center;
   }
 
   /* Remove a barrinha lateral verde do item ativo */
-  .ni.on::before {
+  .opcao.ativa::before {
       display: none; 
   }
 
   /* Reduz a barra de pesquisa para caber no topo */
-  .srch-wrap {
+  .search-wrap {
       max-width: 150px; 
   }
 }
@@ -557,7 +606,7 @@ header {
   }
 
   /* Transforma a barra lateral numa Bottom Nav (estilo app de celular) */
-  #sb {
+  #menu {
       width: 100%;
       min-width: 100%;
       height: 60px;
@@ -569,19 +618,19 @@ header {
   }
 
   /* Esconde a logo no celular */
-  .sb-logo {
+  .logo {
       display: none; 
   }
 
   /* Ajustes dos botões na barra inferior */
-  .ni {
+  .opcao {
       margin: 0;
       border-radius: 10px;
       padding: 10px 15px;
   }
   
   /* Corrige o hover para não bugar no celular */
-  .ni:hover {
+  .opcao:hover {
       transform: none; 
   }
 
@@ -590,7 +639,7 @@ header {
       gap: 10px;
   }
 
-  .srch-wrap {
+  .search-wrap {
       max-width: 120px; 
   }
 
